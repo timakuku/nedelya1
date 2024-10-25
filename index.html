@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости</title>
+    <style>
+        .notification {
+            display: none;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #4caf50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Новости</h1>
+<div id="news-container"></div>
+<button id="add-news">Добавить новость</button>
+<div class="notification" id="notification"></div>
+
+<script>
+    const newsContainer = document.getElementById('news-container');
+    const addNewsButton = document.getElementById('add-news');
+    const notification = document.getElementById('notification');
+
+    addNewsButton.addEventListener('click', () => {
+        const newsBlock = document.createElement('div');
+        newsBlock.classList.add('news-item');
+        const date = new Date().toLocaleString();
+        newsBlock.innerHTML = `<p>Новость добавлена: ${date}</p><button class="delete-news">Удалить</button>`;
+        newsContainer.appendChild(newsBlock);
+
+        showNotification('Новость добавлена успешно!');
+
+        const deleteButton = newsBlock.querySelector('.delete-news');
+        deleteButton.addEventListener('click', () => {
+            newsContainer.removeChild(newsBlock);
+        });
+    });
+
+    function showNotification(message) {
+        notification.textContent = message;
+        notification.style.display = 'block';
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 5000);
+    }
+</script>
+
+</body>
+</html>
